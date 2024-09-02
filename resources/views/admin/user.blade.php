@@ -1,1 +1,3 @@
-hello world
+<x-admin-layout>
+    
+</x-admin-layout>
