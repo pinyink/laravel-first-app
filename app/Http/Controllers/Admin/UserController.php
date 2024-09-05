@@ -19,6 +19,7 @@ class UserController extends Controller
     public function ajaxList()
     {
         $user = User::select("*");
-        return DataTables::of($user)->make();
+        return DataTables::of($user)
+                ->make();
     }
 }
