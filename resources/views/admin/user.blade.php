@@ -60,6 +60,7 @@
     $('#tbl_list').DataTable({
             processing: true,
             serverSide: true,
+            ordering: true,
             ajax: '{{ route('admin.user_list') }}',
             columns: [
                 { data: 'id', name: 'id' },
