@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\User;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -16,6 +18,7 @@ class UserController extends Controller
 
     public function ajaxList()
     {
-        echo "Coba";
+        $user = User::select("*");
+        return DataTables::of($user)->make();
     }
 }

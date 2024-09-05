@@ -20,6 +20,6 @@ Route::middleware('auth')->group(function () {
 
 // Route::get('/admin/user', [UserController::class, 'index'])->name('admin.user');
 Route::get('/admin/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user');
-// Route::get('/admin/user/coba', [UserController::class, 'ajaxList'])->name("admin.ajaxlist");
+Route::get('/admin/user_list', [App\Http\Controllers\Admin\UserController::class, 'ajaxList'])->name("admin.user_list");
 
 require __DIR__.'/auth.php';

@@ -30,6 +30,45 @@
     </x-slot:breadcrumb>
 
     <x-slot:content>
+        <div class="card mt-3">
+            <div class="card-header">
+                <div class="card-title m-0">
+                    <h3 class="fw-bold m-0">{{ __('Data User') }}</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="tbl_list" class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Email</th>
 
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </x-slot:content>
+    
+@push('scripts')
+    <script type="text/javascript">
+    $(document).ready(function () {
+    $('#tbl_list').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route('admin.user_list') }}',
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+
+            ]
+        });
+    });
+    </script>
+@endpush
 </x-admin-layout>

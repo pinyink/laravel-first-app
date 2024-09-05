@@ -1,7 +1,7 @@
 <div class="card mt-3">
     <div class="card-header">
         <div class="card-title m-0">
-            <h3 class="fw-bold m-0">Reset Password</h3>
+            <h3 class="fw-bold m-0">{{ __(Reset Password) }}</h3>
         </div>
     </div>
     <div class="card-body">
