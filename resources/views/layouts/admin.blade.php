@@ -24,6 +24,9 @@
 		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 		<link href="{{ asset('admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('admin/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+		<!-- datatable -->
+		<link href="{{ asset('admin/css/datatable.css') }}" rel="stylesheet" type="text/css" />
+
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->
@@ -372,7 +375,7 @@
 		<script src="{{ asset('admin/plugins/global/plugins.bundle.js') }}"></script>
 		<script src="{{ asset('admin/js/scripts.bundle.js') }}"></script>
 		<!--end::Global Javascript Bundle-->
-
+		
 		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 		<script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>

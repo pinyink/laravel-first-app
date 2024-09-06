@@ -20,6 +20,12 @@ class UserController extends Controller
     {
         $user = User::select("*");
         return DataTables::of($user)
+                ->addColumn('button', function ($row) {
+                    $btn = '<button class="btn btn-primary btn-xs" type="button" onclick="edit_data('.$row->id.')">Edit</button>';
+                    return $btn;
+                })
+                ->rawColumns(['button'])
+                ->addIndexColumn()
                 ->make();
     }
 }

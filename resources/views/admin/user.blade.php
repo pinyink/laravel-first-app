@@ -66,9 +66,7 @@
                 { data: 'id', name: 'id' },
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
-                { data: 'name', 'render': function (value) {
-                    return `<button class="btn btn-primary btn-xs" type="button">Edit `+value+`</button>`;
-                }},
+                { data: 'button', orderable: false, searchable: false},
             ]
         });
     });
