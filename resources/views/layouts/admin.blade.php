@@ -27,6 +27,8 @@
 		<!-- datatable -->
 		<link href="{{ asset('admin/css/datatable.css') }}" rel="stylesheet" type="text/css" />
 
+		@stack('style')
+
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->
