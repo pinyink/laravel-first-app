@@ -18,8 +18,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('/admin/user', [UserController::class, 'index'])->name('admin.user');
-Route::get('/admin/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user');
-Route::get('/admin/user_list', [App\Http\Controllers\Admin\UserController::class, 'ajaxList'])->name("admin.user_list");
+Route::middleware('auth')->group(function() {
+    Route::get('/admin/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user');
+    Route::get('/admin/user/list', [App\Http\Controllers\Admin\UserController::class, 'ajaxList'])->name("admin.user.list");
+    Route::get('/admin/user/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name("admin.user.create");
+    Route::post('/admin/user/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name("admin.user.store");
+});
 
 require __DIR__.'/auth.php';

@@ -10,10 +10,9 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
-    //
     public function index() : View
     {
-        return view('admin/user', []);
+        return view('user.user', []);
     }
 
     public function ajaxList()
@@ -21,11 +20,27 @@ class UserController extends Controller
         $user = User::select("*");
         return DataTables::of($user)
                 ->addColumn('button', function ($row) {
-                    $btn = '<button class="btn btn-primary btn-xs" type="button" onclick="edit_data('.$row->id.')">Edit</button>';
+                    $btn = '<button class="btn btn-primary btn-sm" type="button" onclick="edit_data('.$row->id.')">Edit</button>';
                     return $btn;
                 })
                 ->rawColumns(['button'])
                 ->addIndexColumn()
                 ->make();
     }
+
+    public function create() : View
+    {
+        return view("user.create");
+    }
+
+    public function store(Request $request)
+    {
+        $validation = $request->validate([
+            'name' => ['required', 'unique:users', 'max:64'],
+            'email' => ['required', 'unique:users', 'max:64'],
+        ]);
+        
+        print_r($validation);
+    }
+    
 }

@@ -9,21 +9,21 @@
             @csrf
             @method('patch')
 
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <x-input-label for="name" :value="__('Name')" />
                 <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                     :value="old('name', $user->name)" required autofocus autocomplete="name" />
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <x-input-label for="email" :value="__('Email')" />
                 <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
                     :value="old('email', $user->email)" required autocomplete="username" />
                 <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
                 @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
+                <div class="mt-2">
                     <p class="text-sm mt-2 text-gray-800">
                         {{ __('Your email address is unverified.') }}
 
@@ -42,7 +42,7 @@
                 @endif
             </div>
 
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 mt-2">
                 <x-primary-button>{{ __('Save') }}</x-primary-button>
 
                 @if (session('status') === 'profile-updated')
