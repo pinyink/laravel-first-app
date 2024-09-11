@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\User;
+use Illuminate\Validation\Rules\Password;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -35,11 +36,26 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validation = $request->validate([
+        $rules = [
             'name' => ['required', 'unique:users', 'max:64'],
             'email' => ['required', 'unique:users', 'max:64'],
-        ]);
-        
+        ];
+
+        $method = $request->get('method');
+
+        if ($method == 'save') {
+            $rules['password'] = ['required', Password::min(8)
+            ->letters()
+            ->mixedCase()
+            ->numbers()
+            ->symbols()
+            ->uncompromised(), 
+            'confirmed'
+        ];
+            $rules['password_confirmation'] = ['required'];
+        }
+
+        $validation = $request->validate($rules);
         print_r($validation);
     }
     

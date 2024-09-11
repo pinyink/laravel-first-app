@@ -24,6 +24,7 @@
 		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 		<link href="{{ asset('admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('admin/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+		<link rel=”stylesheet” href=”https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css” />
 		<!-- datatable -->
 		<link href="{{ asset('admin/css/datatable.css') }}" rel="stylesheet" type="text/css" />
 
