@@ -1,21 +1,27 @@
 <form action="{{ route('admin.user.store') }}" method="POST" >
     <input type="hidden" name="method" value="{{ $method ?? 'save' }}">
+    <input type="hidden" name="id" value="{{ $id ?? null }}">
     @csrf
 
     <div class="">
         <label for="name" class="form-label">{{ __('Username') }}</label>
-        <input type="text" id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+        <input type="text" id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name ?? old('name') }}">
         @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
     <div class=" mt-2">
         <label for="email" class="form-label">{{ __('Email') }}</label>
-        <input type="text"  id="email" name="email" type="mail" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror">
+        <input type="text"  id="email" name="email" type="mail" value="{{ $user->email ?? old('email') }}" class="form-control @error('email') is-invalid @enderror">
         @error('email')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
+    @if ($method == 'update')
+        <div class="alert alert-info mt-5">
+            {{ __('Isikan password jika ingin mereset') }}
+        </div>
+    @endif
     <div class="row mt-2">
         <div class="col-md-6">
             <x-input-label for="password" :value="__('Password')" />

@@ -22,7 +22,10 @@ Route::middleware('auth')->group(function() {
     Route::get('/admin/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user');
     Route::get('/admin/user/list', [App\Http\Controllers\Admin\UserController::class, 'ajaxList'])->name("admin.user.list");
     Route::get('/admin/user/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name("admin.user.create");
+    Route::get('/admin/user/{id}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name("admin.user.edit");
     Route::post('/admin/user/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name("admin.user.store");
+    Route::get('/admin/user/{id}/detail', [App\Http\Controllers\Admin\UserController::class, 'detail'])->name("admin.user.detail");
+    Route::post('/admin/user/delete', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name("admin.user.delete");
 });
 
 require __DIR__.'/auth.php';

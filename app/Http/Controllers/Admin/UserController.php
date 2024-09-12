@@ -8,6 +8,9 @@ use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Validation\Rules\Password;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\SUPPORT\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -21,7 +24,8 @@ class UserController extends Controller
         $user = User::select("*");
         return DataTables::of($user)
                 ->addColumn('button', function ($row) {
-                    $btn = '<button class="btn btn-primary btn-sm" type="button" onclick="edit_data('.$row->id.')">Edit</button>';
+                    $btn = '<a class="btn btn-success btn-sm" href="'.route('admin.user.detail', ['id' => $row->id]).'">Detail</a>';
+                    $btn .= '<a class="btn btn-primary btn-sm" style="margin-left: 5px;" href="'.route('admin.user.edit', ['id' => $row->id]).'">Edit</a>';
                     return $btn;
                 })
                 ->rawColumns(['button'])
@@ -34,16 +38,35 @@ class UserController extends Controller
         return view("user.create");
     }
 
+    public function edit(int $id) : View
+    {
+        $user = new User();
+        return view("user.edit", ['user' => $user->find($id)]);
+    }
+
+    public function detail(int $id) : View
+    {
+        $user = new User();
+        return view("user.detail", ['user' => $user->find($id)]);
+    }
+
+    public function delete()
+    {
+        
+    }
+
     public function store(Request $request)
     {
+        $id = $request->get('id');
         $rules = [
-            'name' => ['required', 'unique:users', 'max:64'],
-            'email' => ['required', 'unique:users', 'max:64'],
+            'name' => ['required', Rule::unique(User::class)->ignore($id), 'max:64'],
+            'email' => ['required', Rule::unique(User::class)->ignore($id), 'email', 'max:64'],
         ];
 
         $method = $request->get('method');
+        $password = $request->get('password');
 
-        if ($method == 'save') {
+        if ($method == 'save' || $password != null) {
             $rules['password'] = ['required', Password::min(8)
             ->letters()
             ->mixedCase()
@@ -56,7 +79,19 @@ class UserController extends Controller
         }
 
         $validation = $request->validate($rules);
-        print_r($validation);
+
+        $user = new User();
+        if ($method != 'save') {
+            $user = User::find($id);
+        }
+        $user->name = $validation['name'];
+        $user->email = $validation['email'];
+        if ($method == 'save' || $password != null) {
+            $user->password = Hash::make($validation['password']);
+        }
+        $user->save();
+
+        return Redirect::route('admin.user.detail', ['id' => $id])->with('status', 'success');
     }
     
 }

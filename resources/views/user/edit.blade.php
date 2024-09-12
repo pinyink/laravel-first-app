@@ -20,13 +20,13 @@
                     </li>
                     <!--end::Item-->
                     <li class="breadcrumb-item text-muted">
-                        <span class="text-muted text-hover-primary">{{ __('User') }}</span>
+                        <a href="{{ route("admin.user") }}"><span class="text-muted text-hover-primary">{{ __('User') }}</span></a>
                     </li>
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
                     </li>
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">{{ __('Create') }}</li>
+                    <li class="breadcrumb-item text-muted">{{ __('Update') }}</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -39,12 +39,12 @@
         <div class="card mt-3">
             <div class="card-header">
                 <div class="card-title m-0">
-                    <h3 class="fw-bold m-0">{{ __('Create User') }}</h3>
+                    <h3 class="fw-bold m-0">{{ __('Update User') }}</h3>
                 </div>
                 
             </div>
             <div class="card-body">
-                @include('user._form', ['method' => 'save'])
+                @include('user._form', ['button' => 'Update', 'method' => 'update', 'id' => $user->id])
             </div>
         </div>
     </x-slot:content>
