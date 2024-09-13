@@ -50,9 +50,16 @@ class UserController extends Controller
         return view("user.detail", ['user' => $user->find($id)]);
     }
 
-    public function delete()
+    public function delete(Request $request)
     {
-        
+        $id = $request->get('id');
+        $user = User::find($id);
+        $user->delete();
+
+        return response()->json([
+            'info' => 'success',
+            'message' => 'Delete Data Success'
+        ]);
     }
 
     public function store(Request $request)
@@ -91,7 +98,7 @@ class UserController extends Controller
         }
         $user->save();
 
-        return Redirect::route('admin.user.detail', ['id' => $id])->with('status', 'success');
+        return Redirect::route('admin.user.detail', ['id' => $user->id])->with('status', 'success');
     }
     
 }

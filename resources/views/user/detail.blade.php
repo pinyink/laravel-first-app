@@ -54,6 +54,7 @@
             <div class="card-footer d-flex">
                 <a class="btn btn-primary btn-sm" href="{{ route('admin.user.edit', ['id' => $user->id]) }}">{{ __('Edit') }}</a>
                 <form method="post" action="{{ route('admin.user.delete') }}" id="formDelete">
+                    <input type="hidden" name="id" value="{{ $user->id }}">
                     @csrf
                     <button type="submit" class="btn btn-danger btn-sm" style="margin-left: 5px;">{{ __('Delete') }}</button>
                 </form>
@@ -65,33 +66,61 @@
     <script>
         $('#formDelete').submit(function (e) { 
             e.preventDefault();
-            swal({
+            Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
                 icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!"
+            }).then(function (result) {
+                if (result.value) {
                     $.ajax({
-                        type: "POST",
+                        type: "DELETE",
                         url: "{{ route('admin.user.delete') }}",
                         data: $('#formDelete').serialize(),
                         dataType: "JSON",
                         success: function (response) {
-                            swal({
+                            Swal.fire({
                                 title: "Notification !",
                                 text: response.message,
                                 icon: response.info
                             }).then(function (e) {
                                 window.location.href = "{{ route('admin.user') }}";
                             });
+                        },
+                        error: function (jqXHR) {
+                            console.log(jqXHR.responseText);
                         }
                     });
-                    
-                } 
+                }
             });
+            // swal({
+            //     title: "Are you sure?",
+            //     text: "You won't be able to revert this!",
+            //     icon: "warning",
+            //     buttons: true,
+            //     dangerMode: true,
+            // })
+            // .then((willDelete) => {
+            //     if (willDelete) {
+            //         $.ajax({
+            //             type: "POST",
+            //             url: "{{ route('admin.user.delete') }}",
+            //             data: $('#formDelete').serialize(),
+            //             dataType: "JSON",
+            //             success: function (response) {
+            //                 swal({
+            //                     title: "Notification !",
+            //                     text: response.message,
+            //                     icon: response.info
+            //                 }).then(function (e) {
+            //                     window.location.href = "{{ route('admin.user') }}";
+            //                 });
+            //             }
+            //         });
+                    
+            //     } 
+            // });
         });
     </script>
     @endpush

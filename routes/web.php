@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/admin/user/{id}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name("admin.user.edit");
     Route::post('/admin/user/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name("admin.user.store");
     Route::get('/admin/user/{id}/detail', [App\Http\Controllers\Admin\UserController::class, 'detail'])->name("admin.user.detail");
-    Route::post('/admin/user/delete', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name("admin.user.delete");
+    Route::delete('/admin/user/delete', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name("admin.user.delete");
 });
 
 require __DIR__.'/auth.php';
